@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BellezzaByNaomi | Beauty Studio Premium</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+    
+    <!-- Meta Tags SEO & Social Media -->
+    <meta name="description" content="BellezzaByNaomi - Beauty Studio Premium. Servicios exclusivos de cejas, pestañas, manicuría y pedicuría en un ambiente de lujo.">
+    <meta name="keywords" content="belleza, estética, cejas, pestañas, manicuría, pedicuría, naomi, beauty studio">
+    <meta property="og:title" content="BellezzaByNaomi | Beauty Studio Premium">
+    <meta property="og:description" content="Servicios exclusivos de estética. Agendá tu cita por WhatsApp.">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="BellezzaByNaomi | Beauty Studio Premium">
+    <meta name="twitter:description" content="Lo mejor en estética y cuidado personal.">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="assets/icons/cards/cejas.png">
+    <style>
+        /* --- VARIABLES --- */
+        :root {
+            --pink-pastel: #fdf2f4;
+            --white: #ffffff;
+            --gold: #d4af37;
+            --gold-light: #e6c278;
+            --pink-accent: #f8c8d3;
+            --text-dark: #3a3a3a;
+            --glass-bg: rgba(255, 255, 255, 0.7);
+            --glass-border: rgba(212, 175, 55, 0.3);
+            --shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.08);
+            --transition: all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+
+        /* --- RESET --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #f8f8f8;
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)),
+                url('https://www.transparenttextures.com/patterns/white-diamond.png'),
+                radial-gradient(circle at 20% 30%, rgba(212, 175, 55, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(212, 175, 55, 0.15) 0%, transparent 50%);
+            background-attachment: fixed;
+            color: var(--text-dark);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Simulación de vetas de mármol */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: 
+                linear-gradient(45deg, transparent 45%, rgba(212, 175, 55, 0.05) 48%, rgba(212, 175, 55, 0.1) 50%, rgba(212, 175, 55, 0.05) 52%, transparent 55%),
+                linear-gradient(-35deg, transparent 35%, rgba(212, 175, 55, 0.03) 38%, rgba(212, 175, 55, 0.07) 40%, rgba(212, 175, 55, 0.03) 42%, transparent 45%);
+            pointer-events: none;
+        }
+
+        /* Sistema de Partículas Canvas */
+        #particles-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        h1, h2, h3, .serif {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 700;
+        }
+
+        /* --- ANIMACIÓN INICIAL --- */
+        #reveal-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #ffffff;
+            background-image: 
+                linear-gradient(45deg, transparent 45%, rgba(212, 175, 55, 0.1) 48%, rgba(212, 175, 55, 0.2) 50%, rgba(212, 175, 55, 0.1) 52%, transparent 55%),
+                linear-gradient(-35deg, transparent 35%, rgba(248, 200, 211, 0.1) 38%, rgba(248, 200, 211, 0.2) 40%, rgba(248, 200, 211, 0.1) 42%, transparent 45%),
+                radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.8) 0%, rgba(253, 242, 244, 0.4) 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 5000;
+            animation: fadeOut 1.2s ease-in-out 3s forwards;
+        }
+
+        .reveal-content {
+            text-align: center;
+            animation: revealAnimation 2.5s ease-out forwards;
+        }
+
+        .reveal-title {
+            font-size: 3.5rem;
+            color: var(--gold);
+            letter-spacing: 3px;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .reveal-subtitle {
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            letter-spacing: 6px;
+            color: var(--text-dark);
+            opacity: 0.6;
+        }
+
+        @keyframes revealAnimation {
+            0% { opacity: 0; transform: scale(0.95); filter: blur(15px); }
+            50% { opacity: 1; transform: scale(1.02); filter: blur(0px); }
+            100% { opacity: 1; transform: scale(1); filter: blur(0px); }
+        }
+
+        @keyframes fadeOut {
+            to { opacity: 0; visibility: hidden; }
+        }
+
+        /* --- LAYOUT --- */
+        .container {
+            padding: 3rem 1.5rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 4rem;
+            padding-top: 1rem;
+        }
+
+        header h1 {
+            font-size: 3rem;
+            color: var(--gold);
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        header h1::after {
+            content: "";
+            position: absolute;
+            bottom: -10px;
+            left: 25%;
+            width: 50%;
+            height: 1px;
+            background: linear-gradient(to right, transparent, var(--gold), transparent);
+        }
+
+        /* --- CARDS --- */
+        .grid-services {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+
+        .service-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid var(--pink-accent);
+            border-radius: 30px;
+            padding: 2.5rem 2rem;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: var(--shadow);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(to right, var(--gold-light), var(--gold));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .service-card:hover {
+            transform: translateY(-15px) scale(1.02);
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 25px 50px rgba(248, 200, 211, 0.3);
+            border: 2px solid var(--gold);
+        }
+
+        .service-card:hover::before { opacity: 1; }
+
+        .service-card img, .service-card svg {
+            width: 80px;
+            height: 80px;
+            object-fit: contain;
+            margin-bottom: 1.5rem;
+            filter: drop-shadow(0 4px 6px rgba(0,0,0,0.15));
+            transition: var(--transition);
+        }
+
+        .service-card:hover img, .service-card:hover svg {
+            transform: scale(1.1);
+        }
+
+        .service-card h3 {
+            font-size: 1.8rem;
+            color: var(--text-dark);
+            letter-spacing: 1px;
+        }
+
+        /* --- MODAL --- */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(12px);
+            display: none;
+            justify-content: center;
+            align-items: flex-end;
+            z-index: 6000;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal-overlay.active { display: flex; opacity: 1; }
+
+        .modal-content {
+            background: var(--white);
+            width: 100%;
+            max-height: 90vh;
+            border-radius: 40px 40px 0 0;
+            padding: 2.5rem 2rem;
+            position: relative;
+            transform: translateY(100%);
+            transition: transform 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+            overflow-y: auto;
+            box-shadow: 0 -10px 50px rgba(0,0,0,0.1);
+            border-top: 2px solid var(--gold-light);
+        }
+
+        .modal-overlay.active .modal-content { transform: translateY(0); }
+
+        .close-modal {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            background: #fdfdfd;
+            border: 1px solid #eee;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            color: var(--gold);
+            transition: var(--transition);
+        }
+
+        .close-modal:hover { background: var(--gold); color: var(--white); }
+
+        .modal-header { margin-bottom: 2.5rem; text-align: center; }
+        .modal-header h2 { font-size: 2.5rem; color: var(--gold); }
+
+        /* --- ACORDEÓN --- */
+        .accordion-item { border-bottom: 1px solid #f0f0f0; margin-bottom: 0.5rem; }
+        .accordion-header {
+            width: 100%;
+            padding: 1.5rem 0;
+            background: none;
+            border: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 500;
+            font-size: 1.1rem;
+            color: var(--text-dark);
+            text-align: left;
+            transition: color 0.3s ease;
+        }
+        .accordion-header:hover { color: var(--gold); }
+        .accordion-header span.arrow { transition: transform 0.3s ease; color: var(--gold); font-size: 0.8rem; }
+        .accordion-item.active .arrow { transform: rotate(180deg); }
+        .accordion-body { max-height: 0; overflow: hidden; transition: max-height 0.4s ease-out; }
+        .accordion-item.active .accordion-body { max-height: 600px; padding-bottom: 2rem; }
+
+        .service-detail { display: flex; flex-direction: column; gap: 1.5rem; }
+        .service-detail p { color: #666; font-size: 1rem; line-height: 1.6; }
+        .service-img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-radius: 20px;
+            border: 1px solid var(--pink-accent);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        .service-placeholder {
+            width: 100%;
+            height: 250px;
+            background: #f9f9f9;
+            border: 1px dashed #ddd;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-style: italic;
+            color: var(--gold-light);
+        }
+
+        /* --- BOTONES --- */
+        .btn-cta {
+            background: linear-gradient(135deg, var(--gold), var(--gold-light));
+            color: var(--white);
+            border: none;
+            padding: 1.2rem 2rem;
+            border-radius: 15px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            cursor: pointer;
+            width: 100%;
+            box-shadow: 0 10px 20px rgba(212, 175, 55, 0.2);
+            transition: var(--transition);
+        }
+        .btn-cta:active { transform: scale(0.97); }
+
+        /* --- MEDIA QUERIES --- */
+        @media (max-width: 767px) {
+            .service-card img, .service-card svg {
+                width: 110px;
+                height: 110px;
+            }
+            header h1 { font-size: 2.5rem; }
+        }
+
+        @media (min-width: 768px) {
+            .grid-services { grid-template-columns: repeat(2, 1fr); }
+            .modal-overlay { align-items: center; padding: 2rem; background: rgba(0, 0, 0, 0.1); }
+            .modal-content { width: 650px; border-radius: 40px; transform: translateY(30px) scale(0.95); border: 1px solid var(--white); }
+            .modal-overlay.active .modal-content { transform: translateY(0) scale(1); }
+        }
+        @media (min-width: 1024px) {
+            .grid-services { grid-template-columns: repeat(4, 1fr); }
+            .btn-cta:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(212, 175, 55, 0.3); }
+            header h1 { font-size: 4rem; }
+        }
+
+        /* --- ANIMACIONES DE REVELACIÓN --- */
+        .arrow-down {
+            display: block;
+            color: var(--gold);
+            animation: bounce 2s infinite;
+            font-size: 1.5rem;
+            margin-top: 0.5rem;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(10px); }
+            60% { transform: translateY(5px); }
+        }
+
+        .reveal-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+
+        .reveal-on-scroll.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .floating {
+            animation: float 4s ease-in-out infinite;
+        }
+
+        footer { text-align: center; padding: 5rem 2rem; color: var(--gold); font-weight: 300; letter-spacing: 1px; }
+    </style>
+</head>
+<body>
+
+    <!-- Sistema de Partículas -->
+    <canvas id="particles-canvas"></canvas>
+
+    <!-- Pantalla de Reveal -->
+    <div id="reveal-screen">
+        <div class="reveal-content">
+            <h1 class="reveal-title">BellezzaByNaomi</h1>
+            <p class="reveal-subtitle">Estética de Alta Gama</p>
+        </div>
+    </div>
+
+    <!-- Contenido Principal -->
+    <div class="container">
+        <header class="reveal-on-scroll">
+            <div style="position: relative; display: inline-block;">
+                <canvas id="title-particles" style="position: absolute; top: -50px; left: -50px; width: calc(100% + 100px); height: calc(100% + 100px); pointer-events: none; z-index: -1;"></canvas>
+                <h1>BellezzaByNaomi</h1>
+            </div>
+            <p>Elegí tu servicio <span class="arrow-down">▼</span></p>
+        </header>
+
+        <main class="grid-services">
+            <div class="service-card reveal-on-scroll floating" onclick="openModal('cejas')">
+                <img src="assets/icons/cards/cejas.png" alt="Cejas">
+                <h3>Cejas</h3>
+            </div>
+
+            <div class="service-card reveal-on-scroll floating" style="animation-delay: 0.2s" onclick="openModal('pestanas')">
+                <img src="assets/icons/cards/pestanas.png" alt="Pestañas">
+                <h3>Pestañas</h3>
+            </div>
+
+            <div class="service-card reveal-on-scroll floating" style="animation-delay: 0.4s" onclick="openModal('manicuria')">
+                <img src="assets/icons/cards/manicuria.png" alt="Manicuría">
+                <h3>Manicuría</h3>
+            </div>
+
+            <div class="service-card reveal-on-scroll floating" style="animation-delay: 0.6s" onclick="openModal('pedicuria')">
+                <img src="assets/icons/cards/pedicuria.png" alt="Pedicuría">
+                <h3>Pedicuría</h3>
+            </div>
+        </main>
+
+        <footer>
+            <p>&copy; 2024 BellezzaByNaomi. Made with Elegance.</p>
+        </footer>
+    </div>
+
+    <!-- Modal Dinámico -->
+    <div id="service-modal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="close-modal" onclick="closeModal()">&times;</button>
+            <div class="modal-header">
+                <h2 id="modal-title">Categoría</h2>
+            </div>
+            <div id="modal-body" class="accordion-container"></div>
+        </div>
+    </div>
+
+    <script>
+        // --- SISTEMA DE PARTÍCULAS (CORAZONES DORADOS Y ROSADOS) ---
+        const canvas = document.getElementById('particles-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+
+        // Colores para alternar
+        const particleColors = [
+            'rgba(212, 175, 55, ', // Dorado
+            'rgba(248, 200, 211, '  // Rosado
+        ];
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+
+        class HeartParticle {
+            constructor(index) {
+                this.colorIndex = index % 2; // Alternar entre dorado y rosado
+                this.reset();
+            }
+            reset() {
+                this.x = Math.random() * canvas.width;
+                this.y = canvas.height + Math.random() * 200;
+                this.size = Math.random() * 8 + 4;
+                this.speed = Math.random() * 0.5 + 0.2;
+                this.opacity = Math.random() * 0.4 + 0.1;
+                this.angle = Math.random() * Math.PI * 2;
+                this.swing = Math.random() * 1 + 0.5;
+            }
+            draw() {
+                ctx.save();
+                ctx.translate(this.x, this.y);
+                ctx.rotate(this.angle);
+                ctx.beginPath();
+                ctx.moveTo(0, 0);
+                // Dibujar forma de corazón
+                ctx.bezierCurveTo(-this.size / 2, -this.size / 2, -this.size, this.size / 3, 0, this.size);
+                ctx.bezierCurveTo(this.size, this.size / 3, this.size / 2, -this.size / 2, 0, 0);
+                ctx.fillStyle = particleColors[this.colorIndex] + this.opacity + ')';
+                ctx.fill();
+                ctx.restore();
+            }
+            update() {
+                this.y -= this.speed;
+                this.x += Math.sin(this.y * 0.01) * this.swing;
+                this.angle += 0.005;
+                if (this.y < -50) this.reset();
+            }
+        }
+
+        function initParticles() {
+            particles = [];
+            const count = window.innerWidth < 768 ? 24 : 48; // Ligeramente más partículas para el efecto mixto
+            for (let i = 0; i < count; i++) {
+                particles.push(new HeartParticle(i));
+            }
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+            requestAnimationFrame(animate);
+        }
+
+        window.addEventListener('resize', () => {
+            resizeCanvas();
+            initParticles();
+        });
+
+        // --- LÓGICA DE LA WEB ---
+        const servicesData = {
+            cejas: {
+                title: "Cejas",
+                items: [
+                    { name: "Diseño y depilación", desc: "Perfilado profesional adaptado a tu rostro para una mirada perfecta.", img: "assets/images/services/diseno-depilacion-cejas.jpg" },
+                    { name: "Diseño con Henna", desc: "Tinte orgánico que rellena espacios y define la forma de tus cejas.", img: "assets/images/services/henna.jpg" },
+                    { name: "Diseño con tinte", desc: "Coloración de vellos para un aspecto más tupido y elegante.", img: "assets/images/services/diseno-tinte.jpeg" },
+                    { name: "Laminado de cejas", desc: "Direccionamiento de vellos para un efecto 'brushed up' duradero.", img: "assets/images/services/laminado.jpeg" },
+                    { name: "Depilación con hilo", desc: "Técnica hipoalergénica de precisión milimétrica.", img: "assets/images/services/depilacion-hilo.jpeg" }
+                ]
+            },
+            pestanas: {
+                title: "Pestañas",
+                items: [
+                    { name: "Lifting (Tinte + Botox)", desc: "Elevación desde la raíz con nutrición extrema para tus pestañas naturales.", img: "assets/images/services/lifting-pestanas.webp" },
+                    { name: "Pestañas Pelo x Pelo", desc: "Clásicas, efecto mojado o rímel según tu preferencia.", img: "assets/images/services/pestanas-pelo-a-pelo.webp" },
+                    { name: "Volumen 2D a 6D", desc: "Diferentes densidades para un look impactante y sofisticado.", img: "assets/images/services/pestanas-3d.jpeg" },
+                    { name: "Foxy & Cat Eye", desc: "Diseños de extensión que alargan y levantan la mirada.", img: "assets/images/services/pestanas-hibridas.jpeg" },
+                    { name: "Retiro de pestañas", desc: "Procedimiento suave para proteger la integridad de tu mirada.", img: "assets/images/services/retiro-pestanas.webp" }
+                ]
+            },
+            manicuria: {
+                title: "Manicuría",
+                items: [
+                    { name: "Esmaltado Semipermanente", desc: "Brillo y color impecable por semanas.", img: "assets/images/services/esmaltado-semi.jpeg" },
+                    { name: "Kapping Gel", desc: "Capa protectora para fortalecer tus uñas naturales.", img: "assets/images/services/kapping.jpeg" },
+                    { name: "Soft Gel", desc: "Extensiones ligeras y naturales de última generación.", img: "assets/images/services/soft-gel.jpeg" },
+                    { name: "Nail Art", desc: "Detalles artísticos personalizados para tus manos.", img: "assets/images/services/nail-art.webp" },
+                    { name: "Manicuría Tradicional", desc: "El cuidado clásico para unas manos perfectas.", img: "assets/images/services/manicuria-tradicional.jpeg" }
+                ]
+            },
+            pedicuria: {
+                title: "Pedicuría",
+                items: [
+                    { name: "Limpieza con torno + semi", desc: "Cuidado podológico estético con acabado duradero.", img: "assets/images/services/limpieza-torno.jpg" },
+                    { name: "Spa Relajante", desc: "Exfoliación con sales, hidratación profunda y masaje.", img: "assets/images/services/spa-relajante.webp" },
+                    { name: "Limpieza + Tradicional", desc: "El cuidado clásico para unos pies perfectos.", img: "assets/images/services/limpieza-tradicional.jpg" },
+                    { name: "Retiro de esmalte", desc: "Remoción profesional para mantener la salud de la uña.", img: "assets/images/services/retiro-esmalte.jpeg" }
+                ]
+            }
+        };
+
+        const modal = document.getElementById('service-modal');
+        const modalTitle = document.getElementById('modal-title');
+        const modalBody = document.getElementById('modal-body');
+
+        function openModal(category) {
+            const data = servicesData[category];
+            modalTitle.innerText = data.title;
+            modalBody.innerHTML = data.items.map(item => `
+                <div class="accordion-item">
+                    <button class="accordion-header" onclick="toggleAccordion(this)">
+                        ${item.name} <span class="arrow">▼</span>
+                    </button>
+                    <div class="accordion-body">
+                        <div class="service-detail">
+                            <p>${item.desc}</p>
+                            ${item.img ? `<img src="${item.img}" class="service-img" alt="${item.name}">` : `<div class="service-placeholder">[Imagen de ${item.name}]</div>`}
+                            <button class="btn-cta" onclick="handleBooking('${item.name}')">Agendar tu cita</button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            modal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        function toggleAccordion(element) {
+            const item = element.parentElement;
+            const isActive = item.classList.contains('active');
+            document.querySelectorAll('.accordion-item').forEach(el => el.classList.remove('active'));
+            if (!isActive) item.classList.add('active');
+        }
+
+        function handleBooking(service) {
+            const phoneNumber = "5491172023171";
+            const message = encodeURIComponent(`¡Hola! 👋 Quiero agendar una cita para el servicio: *${service}* en BellezzaByNaomi.`);
+            const whatsappUrl = `https://wa.me/${phoneNumber}?text=${message}`;
+            
+            const btn = event.target;
+            btn.innerText = "Redirigiendo...";
+            setTimeout(() => {
+                window.open(whatsappUrl, '_blank');
+                btn.innerText = "Agendar tu cita";
+            }, 500);
+        }
+
+        window.onclick = function(event) { if (event.target == modal) closeModal(); }
+
+        // --- SISTEMA DE PARTÍCULAS DEL TÍTULO (CORAZONCITOS ROSADOS) ---
+        const titleCanvas = document.getElementById('title-particles');
+        const tCtx = titleCanvas.getContext('2d');
+        let titleParticles = [];
+
+        function initTitleParticles() {
+            titleCanvas.width = titleCanvas.parentElement.offsetWidth + 100;
+            titleCanvas.height = titleCanvas.parentElement.offsetHeight + 100;
+            titleParticles = [];
+            for (let i = 0; i < 20; i++) {
+                titleParticles.push({
+                    x: Math.random() * titleCanvas.width,
+                    y: Math.random() * titleCanvas.height,
+                    size: Math.random() * 5 + 2,
+                    speedY: Math.random() * 0.5 + 0.2,
+                    opacity: Math.random() * 0.5 + 0.2
+                });
+            }
+        }
+
+        function animateTitleParticles() {
+            tCtx.clearRect(0, 0, titleCanvas.width, titleCanvas.height);
+            titleParticles.forEach(p => {
+                p.y -= p.speedY;
+                if (p.y < -10) p.y = titleCanvas.height + 10;
+                
+                tCtx.save();
+                tCtx.translate(p.x, p.y);
+                tCtx.beginPath();
+                tCtx.moveTo(0, 0);
+                tCtx.bezierCurveTo(-p.size / 2, -p.size / 2, -p.size, p.size / 3, 0, p.size);
+                tCtx.bezierCurveTo(p.size, p.size / 3, p.size / 2, -p.size / 2, 0, 0);
+                tCtx.fillStyle = `rgba(248, 200, 211, ${p.opacity})`;
+                tCtx.fill();
+                tCtx.restore();
+            });
+            requestAnimationFrame(animateTitleParticles);
+        }
+
+        // Inicialización
+        window.onload = () => {
+            resizeCanvas();
+            initParticles();
+            animate();
+            
+            initTitleParticles();
+            animateTitleParticles();
+
+            // Lógica de Revelación al Scroll
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) entry.target.classList.add('visible');
+                });
+            }, { threshold: 0.1 });
+            document.querySelectorAll('.reveal-on-scroll').forEach(el => observer.observe(el));
+        };
+    </script>
+</body>
+</html>
