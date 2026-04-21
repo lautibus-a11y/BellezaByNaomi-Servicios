@@ -229,8 +229,8 @@
         .service-card:hover {
             transform: translateY(-15px) scale(1.02);
             background: rgba(255, 255, 255, 0.95);
-            box-shadow: 0 25px 50px rgba(248, 200, 211, 0.3);
-            border: 2px solid var(--gold);
+            box-shadow: 0 0 30px rgba(248, 200, 211, 0.5), 0 25px 50px rgba(248, 200, 211, 0.3);
+            border: 2px solid var(--pink-accent);
         }
 
         .service-card:hover::before { opacity: 1; }
@@ -653,16 +653,16 @@
         }
 
         function handleBooking(service) {
-            const phoneNumber = "5491172023171";
+            const phoneNumber = "5491161546312";
             const message = encodeURIComponent(`¡Hola! 👋 Quiero agendar una cita para el servicio: *${service}* en BellezzaByNaomi.`);
             const whatsappUrl = `https://wa.me/${phoneNumber}?text=${message}`;
             
             const btn = event.target;
             btn.innerText = "Redirigiendo...";
             setTimeout(() => {
-                window.open(whatsappUrl, '_blank');
-                btn.innerText = "Agendar tu cita";
-            }, 500);
+                window.location.href = whatsappUrl;
+                setTimeout(() => { btn.innerText = "Agendar tu cita"; }, 1000);
+            }, 300);
         }
 
         window.onclick = function(event) { if (event.target == modal) closeModal(); }
